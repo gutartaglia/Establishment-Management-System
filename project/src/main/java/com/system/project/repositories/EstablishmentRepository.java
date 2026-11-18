@@ -8,4 +8,5 @@ public interface EstablishmentRepository extends MongoRepository<Establishment, 
 
     boolean existsByEmail(String email);
     
+    boolean existsByEmailAndIdNot(String email, String id);
 }

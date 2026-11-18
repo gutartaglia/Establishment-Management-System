@@ -30,4 +30,12 @@ public class EstablishmentMapper {
         establishment.getCreatedAt());
     }
 
+    public void updateEstablishment(Establishment establishment, EstablishmentRequest request){
+        establishment.setName(request.getName());
+        establishment.setDescription(request.getDescription());
+        establishment.setEmail(request.getEmail());
+        establishment.setPhone(request.getPhone());
+        establishment.setAddress(request.getAddress());
+    }
+
 }
