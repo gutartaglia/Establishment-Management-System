@@ -1,7 +1,6 @@
 package com.system.project.domain;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import jakarta.validation.constraints.Email;
@@ -36,14 +35,13 @@ public class Professional {
     private boolean active = true;
 
     @NotNull
-    @DBRef(lazy = true)
-    private Establishment establishment;
+    private String establishmentId;
 
-    public Professional(String name, String email, String phone, Establishment establishment){
+    public Professional(String name, String email, String phone, String establishmentId){
         this.name = name;
         this.email = email;
         this.phone = phone;
-        this.establishment = establishment;
+        this.establishmentId = establishmentId;
     }
 
 }
