@@ -55,7 +55,7 @@ public class EstablishmentController {
         return ResponseEntity.ok(eResponse);
     }
 
-
+    
 
 
 }

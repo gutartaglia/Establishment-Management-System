@@ -23,7 +23,7 @@ public class ProfessionalService {
     private final ProfessionalMapper pMapper;
 
     public ProfessionalResponse create(ProfessionalRequest request){
-        if (!repository.existsByEmail(request.getEmail())){
+        if (repository.existsByEmail(request.getEmail())){
             throw new BusinessException("Email já cadastrado");
         }
         Professional saved = repository.save(pMapper.toEntity(request));
