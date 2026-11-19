@@ -1,6 +1,5 @@
 package com.system.project.dto.request;
 
-import com.system.project.domain.Establishment;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -27,6 +26,6 @@ public class ProfessionalRequest {
     private String phone;
 
     @NotNull
-    private Establishment establishment;
+    private String establishmentId;
 
 }

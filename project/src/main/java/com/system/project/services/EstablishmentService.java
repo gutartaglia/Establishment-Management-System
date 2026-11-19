@@ -22,7 +22,7 @@ public class EstablishmentService {
 
     private final EstablishmentMapper eMapper;
 
-    public EstablishmentResponse insert(EstablishmentRequest request){
+    public EstablishmentResponse create(EstablishmentRequest request){
         if (repository.existsByEmail(request.getEmail())){
             throw new BusinessException("Email já cadastrado");
         }
@@ -63,5 +63,6 @@ public class EstablishmentService {
         Establishment establishment = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Objeto não encontrado"));
         repository.delete(establishment);
     }
+
 
 }

@@ -29,8 +29,8 @@ public class EstablishmentController {
     private final EstablishmentService service;
 
     @PostMapping 
-    public ResponseEntity<EstablishmentResponse> insert(@Valid @RequestBody EstablishmentRequest request){
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.insert(request));
+    public ResponseEntity<EstablishmentResponse> create(@Valid @RequestBody EstablishmentRequest request){
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.create(request));
     }
 
     @GetMapping 
