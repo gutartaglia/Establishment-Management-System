@@ -24,5 +24,5 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleBusiness(BusinessException ex, HttpServletRequest request){
         ErrorResponse response = new ErrorResponse(Instant.now(), HttpStatus.CONFLICT.value(), HttpStatus.CONFLICT.getReasonPhrase(), ex.getMessage(), request.getRequestURI());
         return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
-    }
+    }   
 }
