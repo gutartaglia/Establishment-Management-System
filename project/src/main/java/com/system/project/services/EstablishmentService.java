@@ -49,6 +49,16 @@ public class EstablishmentService {
         return eMapper.toResponse(saved);
     }
 
+    public EstablishmentResponse activeEstablishment(String id){
+        Establishment establishment = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Objeto não encontrado"));
+        if (establishment.isActive()) {
+            throw new BusinessException("Estabelecimento já está inativo");
+        }
+        establishment.setActive(true);
+        Establishment saved = repository.save(establishment);
+        return eMapper.toResponse(saved);
+    }
+
     public EstablishmentResponse update(String id, EstablishmentRequest request){
         Establishment establishment = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Objeto não encontrado"));
         eMapper.updateEstablishment(establishment, request);

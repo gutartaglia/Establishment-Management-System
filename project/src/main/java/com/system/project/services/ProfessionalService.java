@@ -8,6 +8,7 @@ import com.system.project.domain.Professional;
 import com.system.project.dto.request.ProfessionalRequest;
 import com.system.project.dto.response.ProfessionalResponse;
 import com.system.project.mappers.ProfessionalMapper;
+import com.system.project.repositories.EstablishmentRepository;
 import com.system.project.repositories.ProfessionalRepository;
 import com.system.project.services.exceptions.BusinessException;
 import com.system.project.services.exceptions.ResourceNotFoundException;
@@ -19,10 +20,14 @@ import lombok.RequiredArgsConstructor;
 public class ProfessionalService {
     
     private final ProfessionalRepository repository;
+    private final EstablishmentRepository eRepository;
 
     private final ProfessionalMapper pMapper;
 
     public ProfessionalResponse create(ProfessionalRequest request){
+        if (!eRepository.existsById(request.getEstablishmentId())){
+            throw new ResourceNotFoundException("Estabelecimento não encontrado");
+        }
         if (repository.existsByEmail(request.getEmail())){
             throw new BusinessException("Email já cadastrado");
         }
@@ -53,15 +58,23 @@ public class ProfessionalService {
         return pMapper.toResponse(saved);
     }
 
-    public ProfessionalResponse deactiveProfessional(String id){
+    public void deactiveProfessional(String id){
         Professional professional = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Profissional não encontrado"));
         if (!professional.isActive()){
             throw new BusinessException("Profissional já está inativo");
         }
         professional.setActive(false);
-        Professional saved = repository.save(professional);
-        return pMapper.toResponse(saved);
-    }    
+        repository.save(professional);
+    }   
+    
+    public void activeProfessional(String id){
+        Professional professional = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Profissional não encontrado"));
+        if (professional.isActive()){
+            throw new BusinessException("Profissional já está ativo");
+        }
+        professional.setActive(true);
+        repository.save(professional);
+    }
 
     public void delete(String id){
         Professional professional = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Profissional não encontrado"));
